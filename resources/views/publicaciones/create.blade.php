@@ -42,10 +42,8 @@
                             required
                         >
                             <option value="">Selecciona un estado</option>
-                            <option value="Tiempo Completo" {{ old('estado') == 'Tiempo Completo' ? 'selected' : '' }}>Tiempo Completo</option>
-                            <option value="Medio Tiempo" {{ old('estado') == 'Medio Tiempo' ? 'selected' : '' }}>Medio Tiempo</option>
-                            <option value="Temporal" {{ old('estado') == 'Temporal' ? 'selected' : '' }}>Temporal</option>
-                            <option value="Por Proyecto" {{ old('estado') == 'Por Proyecto' ? 'selected' : '' }}>Por Proyecto</option>
+                            <option value="Tiempo Completo" {{ old('estado') == 'Tiempo Completo' ? 'selected' : '' }}>Disponible</option>
+                            <option value="Medio Tiempo" {{ old('estado') == 'Medio Tiempo' ? 'selected' : '' }}>Ocupado</option>
                         </select>
                     </div>
 

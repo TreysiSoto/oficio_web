@@ -38,7 +38,7 @@
                             @method('POST')
 
                             <!-- Botón de carga de archivo oculto y asociado al botón visible -->
-                            <label for="foto_perfil" class="px-4 py-2 bg-[#031926] text-white rounded-lg cursor-pointer hover:bg-blue-700">
+                            <label for="foto_perfil" class="px-4 py-2 bg-[#031926] text-white rounded-lg cursor-pointer hover:bg-[#468189]">
                                 Subir Foto
                             </label>
                             <input type="file" name="foto_perfil" id="foto_perfil" accept="image/*" class="hidden" onchange="this.form.submit()">
@@ -66,7 +66,7 @@
                             @if($empleador->antecedentes)
                         <p class="mb-4">
                             <strong>Antecedentes:</strong> 
-                            <a href="{{ Storage::url($empleador->antecedentes) }}" target="_blank" class="text-blue-500 hover:text-blue-700">
+                            <a href="{{ Storage::url($empleador->antecedentes) }}" target="_blank" class="text-blue-500">
                                 Ver archivo
                             </a>
                         </p>
@@ -77,7 +77,7 @@
                               <!-- Botón para subir antecedentes -->
                             <form action="{{ route('empleador.subirAntecedentes', $empleador->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <label for="antecedentes" class="px-4 py-2 bg-[#031926] text-white rounded-lg cursor-pointer hover:bg-blue-700">
+                                <label for="antecedentes" class="px-4 py-2 bg-[#031926] text-white rounded-lg cursor-pointer hover:bg-[#468189]">
                                     Subir Antecedentes
                                 </label>
                                 <input 
@@ -90,15 +90,20 @@
                                 >
                             </form>                                                
                             <div class="block justify-end mb-4">
-                                <a href="{{ route('publicacion.create') }}" class="bg-[#031926] text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+                                <a href="{{ route('publicacion.create') }}" class="bg-[#031926] text-white px-4 py-2 rounded-lg hover:bg-[#468189] transition">
                                 Crear Nueva Publicación
                                 </a>
                             </div>
+                            <button id="openModal" class="bg-[#031926] text-white py-2 px-4 rounded hover:bg-[#468189]">
+                                Ver Mis Publicaciones
+                            </button>
                         </div>
+                        
                     </div>
                                          
                      <!-- Modal para ver las publicaciones del empleador -->
-                        <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
+    
+                     <div id="modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center hidden">
                             <div class="bg-white rounded-lg shadow-xl w-3/4 max-w-3xl p-6 relative">
                                 <h2 class="text-xl font-semibold mb-4">Mis Publicaciones de Trabajo</h2>
                                 
@@ -127,49 +132,49 @@
                     
                 <!-- Columna Derecha: Secciones Adicionales -->
                 <div class="lg:col-span-2 space-y-4">
-                    
-                        <!-- Sección de Publicaciones de Empleadores -->
-                        <div class="block justify-center items-center">
-                            <div class="bg-white p-4 rounded-lg shadow-md ">
-                                <form action="{{ route('empleador.buscarTrabajo') }}" method="GET">
-                                    <div class="flex space-x-2">
-                                        <input type="text" name="buscar_trabajo" id="buscar_trabajo" class="p-2 border rounded-lg w-full text-sm" placeholder="Ejemplo: Albañil, Electricista, etc.">
-                                        <button type="submit" class="px-4 py-2 bg-[#031926] text-white rounded-lg hover:bg-blue-700 text-sm">Buscar</button>
-                                    </div>
-                                </form>
-                            </div>
-                            @if($publicacionesOtras->isNotEmpty())
-                            <div class="space-y-6">
-                                @foreach($publicacionesOtras as $publicacion)
-                                    <div class="p-4 border rounded-lg bg-gray-50">
-                                    <p class="text-gray-800 font-semibold text-lg">{{ $publicacion->empleador->user->name }}
+                <!-- Sección de Buscar Trabajo -->
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <form action="{{ route('empleador.buscarTrabajo') }}" method="GET">
+                        <div class="flex space-x-2">
+                            <input type="text" name="buscar_trabajo" id="buscar_trabajo" class="p-2 border rounded-lg w-full text-sm" placeholder="Ejemplo: Albañil, Electricista, etc.">
+                            <button type="submit" class="px-4 py-2 bg-[#031926] text-white rounded-lg hover:bg-[#468189] text-sm">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Sección de Publicaciones de Empleadores -->
+                <div class="space-y-6">
+                    @if($publicacionesOtras->isNotEmpty())
+                        @foreach($publicacionesOtras as $publicacion)
+                            <div class="p-4 border rounded-lg bg-gray-50">
+                                <p class="text-gray-800 font-semibold text-lg">{{ $publicacion->empleador->user->name }}
                                     <x-button 
                                         onclick="window.location.href='{{ route('empleador.perfil', ['id' => $publicacion->empleador->id]) }}'" 
                                         class="ms-4 bg-[#9DBEBB]">
                                         {{ __('Ver perfil') }}
                                     </x-button>
-                                    
-                                        <p class="text-gray-600 mt-2">{{ $publicacion->descripcion }}</p>
-                                        <!-- Dirección con estilo -->
-                                    <p class="text-gray-700 font-medium mt-2">
-                                        <span class="block text-sm text-gray-500">Ubicado en </span>
-                                        <a href="https://www.google.com/maps?q={{ urlencode($publicacion->direccion) }}" 
-                                        target="_blank" 
-                                        class="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors duration-200">
-                                            {{ $publicacion->direccion }}
-                                        </a>
-                                    </p>
+                                </p>
+                                <p class="text-gray-600 mt-2">{{ $publicacion->descripcion }}</p>
+                                <!-- Dirección con estilo -->
+                                <p class="text-gray-700 font-medium mt-2">
+                                    <span class="block text-sm text-gray-500">Ubicado en </span>
+                                    <a href="https://www.google.com/maps?q={{ urlencode($publicacion->direccion) }}" 
+                                    target="_blank" 
+                                    class="text-indigo-600 font-semibold hover:text-indigo-800 transition-colors duration-200">
+                                        {{ $publicacion->direccion }}
+                                    </a>
+                                </p>
 
-                                        <p class="text-sm text-gray-500">Estado: <span class="font-semibold">{{ $publicacion->estado }}</span></p>
-                                        <p class="text-gray-600">{{ \Carbon\Carbon::parse($publicacion->fecha_publicacion)->format('d/m/Y') }}</p>
-                                    </div>
-                                @endforeach
+                                <p class="text-sm text-gray-500">Estado: <span class="font-semibold">{{ $publicacion->estado }}</span></p>
+                                <p class="text-gray-600">{{ \Carbon\Carbon::parse($publicacion->fecha_publicacion)->format('d/m/Y') }}</p>
                             </div>
-                        @else
-                            <p>No hay publicaciones disponibles de empleadores. ¡Mantente atento a las nuevas ofertas!</p>
-                        @endif
-                    </div>
+                        @endforeach
+                    @else
+                        <p>No hay publicaciones disponibles de empleadores. ¡Mantente atento a las nuevas ofertas!</p>
+                    @endif
                 </div>
+            </div>
+
             </div>
         </div>
     </div>

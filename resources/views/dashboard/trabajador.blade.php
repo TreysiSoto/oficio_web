@@ -32,7 +32,7 @@
                               method="POST" 
                               enctype="multipart/form-data">
                             @csrf
-                            <label for="foto_perfil" class="px-4 py-2 bg-[#031926] text-white rounded-lg cursor-pointer hover:bg-blue-700">
+                            <label for="foto_perfil" class="px-4 py-2 bg-[#031926] text-white rounded-lg cursor-pointer hover:bg-[#9DBEBB]">
                                 Subir Foto
                             </label>
                             <input type="file" 
@@ -60,7 +60,7 @@
                     @if($trabajador->antecedentes)
                         <p class="mb-4">
                             <strong>Antecedentes:</strong> 
-                            <a href="{{ Storage::url($trabajador->antecedentes) }}" target="_blank" class="text-blue-500 hover:text-blue-700">
+                            <a href="{{ Storage::url($trabajador->antecedentes) }}" target="_blank" class="text-blue-500 hover:text-[#9DBEBB]">
                                 Ver archivo
                             </a>
                         </p>
@@ -71,7 +71,7 @@
                     <!-- Botón para subir antecedentes -->
                     <form action="{{ route('trabajador.subirArchivo', $trabajador->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        <label for="antecedentes" class="px-4 py-2 bg-[#031926] text-white rounded-lg cursor-pointer hover:bg-blue-700">
+                        <label for="antecedentes" class="px-4 py-2 bg-[#031926] text-white rounded-lg cursor-pointer hover:bg-[#9DBEBB]">
                             Subir Antecedentes
                         </label>
                         <input 
@@ -114,7 +114,8 @@
                                         </p>
 
                                         <p class="mt-2">{{ $opinion->mensaje }}</p>
-                                        <p class="text-sm text-gray-500">Publicado el: {{ \Carbon\Carbon::parse($opinion->fecha)->format('d/m/Y') }}</p>
+                                        <!--<p class="text-sm text-gray-500"> {{ \Carbon\Carbon::parse($opinion->fecha)->format('d/m/Y') }}</p>-->
+                                        <p class="text-sm text-gray-500"> {{ \Carbon\Carbon::parse($opinion->fecha)->format('d F Y') }}</p>
                                     </li>
                                 @endforeach
                             </ul>
@@ -136,7 +137,7 @@
                                         id="buscar_trabajo" 
                                         class="p-3 border rounded-md w-3/4 text-xs" 
                                     >
-                                    <button type="submit" class="px-2 py-1 bg-[#031926] text-white rounded-md hover:bg-blue-700 text-xs">Buscar</button>
+                                    <button type="submit" class="px-2 py-1 bg-[#031926] text-white rounded-md hover:bg-[#9DBEBB] text-xs">Buscar</button>
                                 </div>
                             </form>
                         </div>

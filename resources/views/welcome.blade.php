@@ -145,15 +145,12 @@
 
                         <!-- Contenedor de texto -->
                         <div class="mt-8 text-left">
-                            <!-- Título de la publicación -->
-                            <h3 class="text-lg font-semibold text-white">{{ $publicacion->titulo }}</h3>
-
                             <!-- Descripción -->
-                            <p class="mt-1 text-gray-200 text-base">{{ $publicacion->descripcion }}</p>
+                            <p class="mt-1 text-black font-bold text-base">{{ $publicacion->descripcion }}</p>
 
-                            <!-- Dirección -->
-                            <p class="mt-1 text-gray-200 text-base">Direccion: {{ $publicacion->  direccion }}</p>
-
+                            <!-- Dirección 
+                            <p class="mt-1 text-gray-200 text-base">Direccion: {{ $publicacion->  direccion }}</p>-->
+                            <p class="mt-1 text-gray-100 text-base">Estado: {{ $publicacion->  estado }}
                              <!-- Fecha de publicación -->
                              <p class="mt-2 text-gray-200 text-base">
                                 Publicado el: 
@@ -165,7 +162,7 @@
 
                         <!-- Botón Ver más -->
                         <div class="mt-6 text-center">
-                            <a href="{{ route('login') }}" 
+                            <a href="{{ route('register') }}" 
                             class="inline-block bg-[#77ACA2] text-[#031926] py-2 px-4 rounded-md font-medium hover:bg-[#468189] transition duration-150 ease-in-out">
                             Ver más
                             </a>
